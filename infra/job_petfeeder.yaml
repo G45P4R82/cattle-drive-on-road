@@ -1,0 +1,33 @@
+- name: 🔥 Job para verificar estado do petfeeder 
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: 🧪 Teste de conectividade
+      ping:
+
+    - name: 👤 Mostrar usuário atual
+      command: whoami
+      register: whoami_out
+
+    - name: 🖥️ Mostrar hostname
+      command: hostname
+      register: hostname_out
+
+    - name: 🧠 Mostrar infos básicas
+      debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Hostname real: {{ hostname_out.stdout }}"
+          - "Usuário: {{ whoami_out.stdout }}"
+          - "IP: {{ ansible_default_ipv4.address }}"
+          - "SO: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+          - "CPU: {{ ansible_processor_vcpus }} vCPU(s)"
+          - "RAM: {{ (ansible_memtotal_mb / 1024) | round(1) }} GB"
+    - name: 📊 Mostrar infos do petfeeder
+      command: docker run petfeeder
+      register: petfeeder_out
+    - name: 📊 Mostrar infos do petfeeder
+      debug:
+        var: petfeeder_out
