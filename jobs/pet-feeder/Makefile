@@ -1,6 +1,6 @@
 
-IMAGE_NAME := pet-feeder
-CONTAINER_NAME := pet-feeder-container
+IMAGE_NAME := petfeeder
+CONTAINER_NAME := petfeeder
 
 .PHONY: help build run logs stop clean
 
